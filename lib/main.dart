@@ -1,28 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:toonflix/screens/home_screen.dart';
+import 'package:toonflix/services/api_service.dart';
 
 void main() {
   runApp(const App());
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color.fromARGB(255, 239, 57, 72),
-        ),
-        textTheme: const TextTheme(
-          headlineLarge: TextStyle(
-            color: Color(0xFF232B55),
-          ),
-        ),
-        cardColor: const Color(0xFFF4EDDB),
+      home: FutureBuilder(
+        future: ApiService.getPopularMovies(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return HomeScreen(movies: snapshot.data!);
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
-      home: const HomeScreen(),
     );
   }
 }
+
+
+// import 'package:flutter/material.dart';
+// import 'package:toonflix/screens/home_screen.dart';
+// import 'package:toonflix/services/api_service.dart';
+
+// void main() {
+//   ApiService().getPopularMovies();
+//   runApp(const App());
+// }
+
+// class App extends StatelessWidget {
+//   const App({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: FutureBuilder(
+//         future: ApiService().getPopularMovies(),
+//         builder: (context, snapshot) {
+//           if (snapshot.hasData) {
+//             return HomeScreen(movies: snapshot.data!);
+//           }
+//           return const Center(child: CircularProgressIndicator());
+//         },
+//       ),
+//     );
+//   }
+// }
+
+
+// import 'package:flutter/material.dart';
+// import 'package:toonflix/screens/home_screen.dart';
+// import 'package:toonflix/services/api_service.dart';
+
+// void main() {
+//   ApiService().getTodaysToons();
+//   runApp(const App());
+// }
+
+// class App extends StatelessWidget {
+//   const App({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       home: HomeScreen(),
+//     );
+//   }
+// }
