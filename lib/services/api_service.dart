@@ -6,10 +6,24 @@ import 'package:toonflix/models/movie_model.dart';
 class ApiService {
   static String baseUrl = "https://movies-api.nomadcoders.workers.dev";
   static String popularEndpoint = "popular";
+  static String nowPlayingEndpoint = "now-playing";
+  static String comingSoonEndpoint = "coming-soon";
   static String movieEndpoint = "movie";
 
   static Future<List<MovieModel>> getPopularMovies() async {
-    final url = Uri.parse('$baseUrl/$popularEndpoint');
+    return _getMovies(popularEndpoint);
+  }
+
+  static Future<List<MovieModel>> getNowPlayingMovies() async {
+    return _getMovies(nowPlayingEndpoint);
+  }
+
+  static Future<List<MovieModel>> getComingSoonMovies() async {
+    return _getMovies(comingSoonEndpoint);
+  }
+
+  static Future<List<MovieModel>> _getMovies(String endpoint) async {
+    final url = Uri.parse('$baseUrl/$endpoint');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);

@@ -44,17 +44,18 @@ class Movie extends StatelessWidget {
                   )
                 ],
               ),
-              child: Image.network(thumb),
+              child: Container(
+                width: 100, // 원하는 너비
+                height: 175, // 원하는 높이
+                child: Image.network(
+                  thumb,
+                  fit: BoxFit.cover, // 이미지를 컨테이너에 맞게 조정
+                ),
+              ),
             ),
           ),
           const SizedBox(
             height: 10,
-          ),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 22,
-            ),
           ),
         ],
       ),
