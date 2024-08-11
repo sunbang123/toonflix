@@ -1,12 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:toonflix/models/movie_model.dart';
 import 'package:toonflix/services/api_service.dart';
 import 'package:toonflix/widgets/movie_widget.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key, required List<MovieModel> movies});
-
   final Future<List<MovieModel>> movies = ApiService.getPopularMovies();
+
+  HomeScreen({super.key, required List<MovieModel> movies});
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +27,31 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: FutureBuilder(
-        future: movies,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Expanded(child: makeList(snapshot))
-              ],
+      body: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(
+          dragDevices: {
+            PointerDeviceKind.touch,
+            PointerDeviceKind.mouse,
+          },
+        ),
+        child: FutureBuilder(
+          future: movies,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Expanded(child: makeList(snapshot))
+                ],
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
     );
   }
