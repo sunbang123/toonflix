@@ -7,7 +7,7 @@ class MovieModel {
         posterPath = json['poster_path'],
         id = json['id'];
 
-  String get fullPosterPath => 'https://image.tmdb.org/t/p/w500$posterPath';
+  String get thumb => 'https://image.tmdb.org/t/p/w500$posterPath';
 }
 
 // class MovieModel {

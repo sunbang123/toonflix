@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toonflix/models/movie_model.dart';
 import 'package:toonflix/services/api_service.dart';
+import 'package:toonflix/widgets/movie_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key, required List<MovieModel> movies});
@@ -52,33 +53,10 @@ class HomeScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       itemBuilder: (context, index) {
         var movie = snapshot.data![index];
-        return Column(
-          children: [
-            Container(
-              width: 250,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 15,
-                    offset: const Offset(10, 10),
-                    color: Colors.black.withOpacity(0.3),
-                  )
-                ],
-              ),
-              child: Image.network(movie.fullPosterPath),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              movie.title,
-              style: const TextStyle(
-                fontSize: 22,
-              ),
-            ),
-          ],
+        return Movie(
+          title: movie.title,
+          thumb: movie.thumb,
+          id: movie.id,
         );
       },
       separatorBuilder: (context, index) => const SizedBox(width: 40),
