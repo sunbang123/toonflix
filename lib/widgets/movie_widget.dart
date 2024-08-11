@@ -24,7 +24,6 @@ class Movie extends StatelessWidget {
               thumb: thumb,
               id: id,
             ),
-            fullscreenDialog: true,
           ),
         );
       },

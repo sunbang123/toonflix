@@ -17,12 +17,13 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 2,
         backgroundColor: Colors.white,
-        foregroundColor: Colors.green,
+        foregroundColor: Colors.black,
         title: const Center(
           child: Text(
             "오늘의 영화",
             style: TextStyle(
               fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -33,6 +34,7 @@ class HomeScreen extends StatelessWidget {
             PointerDeviceKind.touch,
             PointerDeviceKind.mouse,
           },
+          scrollbars: true,
         ),
         child: FutureBuilder(
           future: movies,
